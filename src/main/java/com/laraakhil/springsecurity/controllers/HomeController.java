@@ -10,7 +10,17 @@ public class HomeController {
 
 	@GetMapping({ "", "/" })
 	public String homeRoute() {
-		return ("<h2>welcome<h2>");
+		return ("<h2>Welcome<h2>");
+	}
+
+	@GetMapping({ "/user" })
+	public String userRoute() {
+		return ("<h2>Welcome user<h2>");
+	}
+
+	@GetMapping({ "/admin" })
+	public String adminRoute() {
+		return ("<h2>Welcome Admin<h2>");
 	}
 
 }
