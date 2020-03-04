@@ -1,5 +1,8 @@
 package com.laraakhil.springsecurity.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,12 +16,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	DataSource dataSource;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.inMemoryAuthentication().withUser("user").password("user").roles("user").and().withUser("root")
-				.password("root").roles("admin");
-
+		auth.jdbcAuthentication().dataSource(dataSource).withDefaultSchema()
+				.withUser(org.springframework.security.core.userdetails.User.withUsername("user").password("user")
+						.roles("user"))
+				.withUser(org.springframework.security.core.userdetails.User.withUsername("root").password("root")
+						.roles("admin"));
 	}
 
 	@SuppressWarnings("deprecation")
