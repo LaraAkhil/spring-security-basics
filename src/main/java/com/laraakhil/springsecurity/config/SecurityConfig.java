@@ -22,11 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.jdbcAuthentication().dataSource(dataSource).withDefaultSchema()
-				.withUser(org.springframework.security.core.userdetails.User.withUsername("user").password("user")
-						.roles("user"))
-				.withUser(org.springframework.security.core.userdetails.User.withUsername("root").password("root")
-						.roles("admin"));
+		auth.jdbcAuthentication().dataSource(dataSource);
 	}
 
 	@SuppressWarnings("deprecation")
